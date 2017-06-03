@@ -1,30 +1,17 @@
 module Cyptoify
   module Technical
     class Data
-      include Enumerable
       attr_accessor :price_set
 
-      def initialize(**args)
+      def initialize(**args)Technical
         @file=(File.read(args[:file]))
         @price_set=JSON.parse(@file)["data"]
         @grain = args[:grain] || :daily
       end
 
       def each(&block)
+        return enum_for(:each) unless block_given?
         send("each_#{@grain.to_s}"){|p|block.call(p)}
-      end
-
-      def find_close(date)
-        select_for_date{|d|d == date}
-      end
-
-      def select_for_date
-        @data.each{|data| yield DateTime.parse(data) }
-      end
-
-      def price_set_in_days(**args)
-
-
       end
 
 
