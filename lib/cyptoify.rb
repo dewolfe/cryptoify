@@ -5,6 +5,7 @@ require 'cyptoify/technical/data'
 require 'cyptoify/technical/macd'
 require 'cyptoify/technical/macd_signal'
 require 'cyptoify/black_box'
+require 'cyptoify/notify'
 
 require 'json'
 require 'date'
