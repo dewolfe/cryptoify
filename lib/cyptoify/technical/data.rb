@@ -8,6 +8,7 @@ module Cyptoify
 
       def initialize(**args)
         file_name = args[:file] || 'price.json'
+        refresh_data unless File.file?(file_name)
         @file = File.read(file_name)
         @price_set = JSON.parse(@file)['data']
         @grain = args[:grain] || :daily
