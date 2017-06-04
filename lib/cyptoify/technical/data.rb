@@ -2,7 +2,6 @@ module Cyptoify
   module Technical
     class Data
       attr_accessor :price_set
-
       def initialize(**args)Technical
         @file=(File.read(args[:file]))
         @price_set=JSON.parse(@file)["data"]
