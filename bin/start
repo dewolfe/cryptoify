@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
-require "pry"
-require "bundler/setup"
-require "cyptoify"
+require 'pry'
+require 'bundler/setup'
+require 'cyptoify'
 
- Cyptoify.start
+Cyptoify.start

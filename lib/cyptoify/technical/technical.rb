@@ -4,7 +4,7 @@ module Cyptoify
       include Enumerable
 
       def data
-        @data||=Data.new({file: 'price.json'})
+        @data ||= Data.new(file: 'price.json')
       end
     end
   end
