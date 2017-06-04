@@ -52,13 +52,16 @@ module Cyptoify
 
     def quad_buy
       cancel_all_orders
-
       quad_client.maket_buy(amount: cad_balance, book: book)
+      Cyptoify::Notify.send_notification('Buy signal fired.')
+
     end
 
     def quad_sell
       cancel_all_orders
       quad_client.maket_sell(amount: eth_ballance, book: book)
+      Cyptoify::Notify.send_notification('Sell signal fired.')
+
     end
 
     def cancel_all_orders

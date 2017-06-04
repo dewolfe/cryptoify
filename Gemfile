@@ -5,3 +5,4 @@ gemspec
 gem 'dotenv'
 gem 'quadrigacx', git: 'https://github.com/dewolfe/quadrigacx.git'
 gem 'rest-client'
+gem 'mail'
