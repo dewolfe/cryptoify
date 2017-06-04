@@ -24,7 +24,7 @@ module Cyptoify
         macd.each do |price|
           count += 1; next unless count > @time_period
           em = ((price[:macd] - previous_day) * multiplier + previous_day).round(2)
-          yield { date: price[:date], macd_signal: em }
+          yield ({ date: price[:date], macd_signal: em })
           previous_day = em
         end
       end
