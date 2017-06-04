@@ -3,11 +3,13 @@ module Cyptoify
     require 'mail'
     class << self
       def send_notification(message)
-        Mail.deliver do
+        mail=Mail.new do
             from     ENV['DEFAULT_MAIL_FROM']
             to       ENV['DEFAULT_MAIL_TO']
             subject  "#{message}-EOM"
         end
+        mail.delivery_method :sendmail
+        mail.deliver
       end
     end
   end
