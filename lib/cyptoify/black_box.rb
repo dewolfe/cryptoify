@@ -16,8 +16,10 @@ module Cyptoify
       data.refresh_data
       loop do
         check_today
-        puts "Trade today? #{trade_today}"
+        puts "Cad Balance: #{cad_balance} Eth Ballance: #{eth_balance}" 
+	puts "Trade today? #{trade_today}"
         puts 'Checking Signal'
+	
         case check_signal
           when :buy
             puts 'STRAGEITY: BUY!'
@@ -81,7 +83,7 @@ module Cyptoify
     def quad_sell
       return if trade_today
       cancel_all_orders
-      quad_client.maket_sell(amount: eth_ballance, book: book)
+      quad_client.maket_sell(amount: eth_balance, book: book)
       self.trade_today = true
       Cyptoify::Notify.send_notification('Sell signal fired.')
     end
@@ -95,8 +97,8 @@ module Cyptoify
       quad_client.balance.cad_balance
     end
 
-    def eth_ballance
-      quad_client.balance.eth_ballance
+    def eth_balance
+      quad_client.balance.eth_balance
     end
   end
   # code
