@@ -1,30 +1,35 @@
 module Cyptoify
   class BlackBox < Cyptoify::Technical::Technical
     require 'rest-client'
-    attr_accessor :quad_client, :indicator, :signal, :book
+    attr_accessor :quad_client, :indicator, :signal, :book, :today,:trade_today
 
     def initialize(**args)
       @quad_client = QuadrigaCX::Client.new
       @book = args[:book] || 'eth_cad'
       @indicator = args[:indicator] || Technical::Macd.new
       @signal = args[:signal] || Technical::MacdSignal.new
+      @trade_today = false
     end
 
     def call
+      set_today
       data.refresh_data
       loop do
+        check_today
+        puts "Trade today? #{trade_today}"
         puts 'Checking Signal'
         case check_signal
-        when :buy
-          puts 'STRAGEITY: BUY!'
-          quad_buy
-        when :sell
-          puts 'STRAGEITY: SELL!'
-          quad_sell
-        when :hold
-          puts 'STRAGEITY: Hold'
+          when :buy
+            puts 'STRAGEITY: BUY!'
+            quad_buy
+          when :sell
+            puts 'STRAGEITY: SELL!'
+            quad_sell
+          when :hold
+            puts 'STRAGEITY: Hold'
         end
         sleep 3600
+        data.refresh_data
       end
     rescue Exception => e
       puts "Exiting #{e}"
@@ -50,18 +55,34 @@ module Cyptoify
       end
     end
 
+    def set_today
+      self.today ||= DateTime.new.to_date
+    end
+
+    def check_today
+      now=DateTime.new.to_date
+      unless self.today == now
+        put "Reseting trades."
+        self.today = now
+        self.trade_today = false
+      end
+    end
+
     def quad_buy
+      return if trade_today
       cancel_all_orders
       quad_client.maket_buy(amount: cad_balance, book: book)
+      self.trade_today = true
       Cyptoify::Notify.send_notification('Buy signal fired.')
 
     end
 
     def quad_sell
+      return if trade_today
       cancel_all_orders
       quad_client.maket_sell(amount: eth_ballance, book: book)
+      self.trade_today = true
       Cyptoify::Notify.send_notification('Sell signal fired.')
-
     end
 
     def cancel_all_orders
