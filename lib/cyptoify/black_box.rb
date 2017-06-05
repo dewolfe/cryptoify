@@ -46,6 +46,7 @@ module Cyptoify
       signal_yesturday = signal.select { |d| d[:date] == yesturday }.first[:macd_signal]
       puts "Today histogram: #{ind_today - signal_today}"
       puts "Yesturday histogram: #{ind_yesturday - signal_yesturday}"
+      return :hold unless (ind_today && signal_today && ind_yesturday && signal_yesturday)
       if ((ind_today - signal_today) < 0) && ((ind_yesturday - signal_yesturday) > 0)
         :buy
       elsif ((ind_today - signal_today) > 0) && ((ind_yesturday - signal_yesturday) < 0)
