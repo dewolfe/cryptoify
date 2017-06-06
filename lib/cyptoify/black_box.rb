@@ -16,10 +16,10 @@ module Cyptoify
       data.refresh_data
       loop do
         check_today
-        puts "Cad Balance: #{cad_balance} Eth Ballance: #{eth_balance}" 
+        puts "Cad Balance: #{cad_balance} Eth Ballance: #{eth_balance}"
 	puts "Trade today? #{trade_today}"
         puts 'Checking Signal'
-	
+
         case check_signal
           when :buy
             puts 'STRAGEITY: BUY!'
@@ -35,6 +35,8 @@ module Cyptoify
       end
     rescue Exception => e
       puts "Exiting #{e}"
+      puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+
     end
 
     private
