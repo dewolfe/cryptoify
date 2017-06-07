@@ -5,13 +5,13 @@ module Cyptoify
         @time_period = args[:time_period] || 12
       end
 
-      def each(&block)
+      def each()
         return enum_for(:each) unless block_given?
         ema { |p| yield(p) }
       end
 
       def ema
-        previous_day = sma(@time_period)
+        previous_day=sma(@time_period)
         multiplier = (2.0 / (@time_period + 1))
         count = 0
         data.each do |price|

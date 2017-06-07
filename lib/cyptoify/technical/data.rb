@@ -7,9 +7,9 @@ module Cyptoify
       attr_accessor :price_set
 
       def initialize(**args)
-        file_name = args[:file] || 'price.json'
-        refresh_data unless File.file?(file_name)
-        @file = File.read(file_name)
+        @file_name = args[:file] || 'price.json'
+        refresh_data unless File.file?(@file_name)
+        @file = File.read(@file_name)
         @price_set = JSON.parse(@file)['data']
         @grain = args[:grain] || :daily
       end
@@ -22,6 +22,8 @@ module Cyptoify
       def refresh_data
         puts 'Refreshing Data'
         load_data_from_etherchain
+        @file = File.read(@file_name)
+        @price_set = JSON.parse(@file)['data']
       end
 
       private
