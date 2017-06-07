@@ -13,13 +13,14 @@ require 'dotenv/load'
 require 'quadrigacx'
 
 module Cyptoify
+
   class << self
     attr_accessor :configuration
   end
 
   def self.start
     Cyptoify.configure
-    BlackBox.new.call
+    BlackBox.new(file_name: 'price.json').call
   end
 
   def self.configure

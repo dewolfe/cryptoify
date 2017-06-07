@@ -3,21 +3,20 @@ module Cyptoify
     require 'rest-client'
     attr_accessor :quad_client, :indicator, :signal, :book, :today,:trade_today
 
-    def initialize(**args)
+    def post_initialize(args={})
       @quad_client = QuadrigaCX::Client.new
       @book = args[:book] || 'eth_cad'
-      @indicator = args[:indicator] || Technical::Macd.new
-      @signal = args[:signal] || Technical::MacdSignal.new
+      @indicator = args[:indicator] || Technical::Macd.new(data: data)
+      @signal = args[:signal] || Technical::MacdSignal.new(data: data)
       @trade_today = false
     end
 
     def call
       set_today
-      data.refresh_data
       loop do
         check_today
         puts "Cad Balance: #{cad_balance} Eth Ballance: #{eth_balance}"
-	puts "Trade today? #{trade_today}"
+	      puts "Trade today? #{trade_today}"
         puts 'Checking Signal'
 
         case check_signal
@@ -31,7 +30,6 @@ module Cyptoify
             puts 'STRAGEITY: Hold'
         end
         sleep 3600
-        data.refresh_data
       end
     rescue Exception => e
       puts "Exiting #{e}"

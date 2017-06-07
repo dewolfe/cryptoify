@@ -5,9 +5,9 @@ module Cyptoify
       # MACD Line: (12-day EMA - 26-day EMA)
       # Signal Line: 9-day EMA of MACD Line
       # MACD Histogram: MACD Line - Signal Line
-      def initialize(**args)
+      def post_initialize(**args)
         @time_period = args[:time_period] || 9
-        @macd = Cyptoify::Technical::Macd.new
+        @macd = Cyptoify::Technical::Macd.new(data: data)
       end
 
       def each(&block)

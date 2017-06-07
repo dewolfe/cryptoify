@@ -1,7 +1,8 @@
 module Cyptoify
   module Technical
     class Ema < Cyptoify::Technical::Technical
-      def initialize(**args)
+
+      def post_initialize(args)
         @time_period = args[:time_period] || 12
       end
 
