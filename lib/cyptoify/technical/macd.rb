@@ -17,6 +17,7 @@ module Cyptoify
 
       def macd
         slow_ema.each do |ema|
+          next unless fast_ema[ema[:date]]
           yield ({ date: ema[:date], macd: (fast_ema[ema[:date]] - ema[:ema]).round(2) })
         end
     end

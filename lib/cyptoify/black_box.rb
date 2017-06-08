@@ -30,6 +30,7 @@ module Cyptoify
             puts 'STRAGEITY: Hold'
         end
         sleep 3600
+        data.refresh_data
       end
     rescue Exception => e
       puts "Exiting #{e}"
