@@ -15,6 +15,7 @@ module Cyptoify
       set_today
       loop do
         check_today
+        data.refresh_data
         puts "Cad Balance: #{cad_balance} Eth Ballance: #{eth_balance}"
 	      puts "Trade today? #{trade_today}"
         puts 'Checking Signal'
@@ -30,12 +31,10 @@ module Cyptoify
             puts 'STRAGEITY: Hold'
         end
         sleep 3600
-        data.refresh_data
       end
     rescue Exception => e
       puts "Exiting #{e}"
       puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
-
     end
 
     private
