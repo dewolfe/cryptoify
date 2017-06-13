@@ -62,8 +62,9 @@ module Cyptoify
 
     def set_today
       unless today
-        puts "Today is #{today}"
         self.today = DateTime.new.to_date
+        puts "Today is #{today}"
+
       end
     end
 
