@@ -1,6 +1,7 @@
 module Cyptoify
   class BlackBox < Cyptoify::Technical::Technical
     require 'rest-client'
+    require 'pry'
     attr_accessor :quad_client, :indicator, :signal, :book, :today,:trade_today
 
     def post_initialize(args={})
@@ -62,14 +63,14 @@ module Cyptoify
 
     def set_today
       unless today
-        self.today = DateTime.new.to_date
+        self.today = DateTime.now.to_date
         puts "Today is #{today}"
 
       end
     end
 
     def check_today
-      now=DateTime.new.to_date
+      now=DateTime.now.to_date
       unless self.today == now
         puts "New Day."
         self.today = now
