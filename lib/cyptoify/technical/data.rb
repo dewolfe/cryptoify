@@ -10,8 +10,6 @@ module Cyptoify
         @file_name = args[:file] || 'price.json'
         @grain = args[:grain] || :daily
         @time_stamp = DateTime.now
-        refresh_data
-
       end
 
       def each(&block)

@@ -8,7 +8,7 @@ module Cyptoify
       @book = args[:book] || 'eth_cad'
       @indicator = args[:indicator] || Technical::Macd.new(data: data)
       @signal = args[:signal] || Technical::MacdSignal.new(data: data)
-      @today=set_today
+      @today = set_today
       @trade_today = false
 
     end
@@ -59,7 +59,10 @@ module Cyptoify
     end
 
     def set_today
-      self.today ||= DateTime.new.to_date
+      unless today
+        puts "Today is #{today}"
+        self.today = DateTime.new.to_date
+      end
     end
 
     def check_today
