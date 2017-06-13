@@ -8,11 +8,12 @@ module Cyptoify
       @book = args[:book] || 'eth_cad'
       @indicator = args[:indicator] || Technical::Macd.new(data: data)
       @signal = args[:signal] || Technical::MacdSignal.new(data: data)
+      @today=set_today
       @trade_today = false
+
     end
 
     def call
-      set_today
       loop do
         check_today
         data.refresh_data
@@ -40,7 +41,6 @@ module Cyptoify
     private
 
     def check_signal
-      today = DateTime.now.to_date
       yesturday = today - 1
       ind_today = indicator.select { |d| d[:date] == today }.first
       signal_today = signal.select { |d| d[:date] == today }.first
@@ -65,7 +65,7 @@ module Cyptoify
     def check_today
       now=DateTime.new.to_date
       unless self.today == now
-        put "Reseting trades."
+        puts "New Day."
         self.today = now
         self.trade_today = false
       end
