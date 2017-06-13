@@ -9,6 +9,7 @@ module Cyptoify
       def initialize(**args)
         file_name = args[:file_name] || 'price.json'
         @data = args[:data] || Data.new(file_name: file_name)
+        
         post_initialize(args)
       end
 
