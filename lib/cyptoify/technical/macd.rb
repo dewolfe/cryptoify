@@ -16,10 +16,10 @@ module Cyptoify
       private
 
       def macd
-        fast_ema.each.inject({}) { |hsh, v| hsh.merge({ v[:date] => v[:ema] }) }
+        fash_hash = fast_ema.each.inject({}) { |hsh, v| hsh.merge({ v[:date] => v[:ema] }) }
         slow_ema.each do |ema|
-          next unless fast_ema[ema[:date]]
-          yield ({ date: ema[:date], macd: (fast_ema[ema[:date]] - ema[:ema]).round(2) })
+          next unless fash_hash[ema[:date]]
+          yield ({ date: ema[:date], macd: (fash_hash[ema[:date]] - ema[:ema]).round(2) })
         end
     end
    end

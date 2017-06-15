@@ -15,7 +15,7 @@ module Cyptoify
         macd_signal { |p| yield(p) }
       end
 
-      private
+      private 
 
       def macd_signal
         previous_day = sma(@time_period)
