@@ -28,8 +28,7 @@ module Cyptoify
 
       def load_data_from_etherchain
         file = File.open('price.json', 'w')
-        request = RestClient.
-        ('https://etherchain.org/api/statistics/price')
+        request = RestClient.get('https://etherchain.org/api/statistics/price')
         file.write(request.body)
       end
 
