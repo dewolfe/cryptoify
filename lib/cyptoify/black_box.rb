@@ -6,7 +6,6 @@ module Cyptoify
 
     def post_initialize(args={})
       data.refresh_data
-
       @quad_client = QuadrigaCX::Client.new
       @book = args[:book] || 'eth_cad'
       @indicator = args[:indicator] || Technical::Macd.new(data: data)

@@ -4,7 +4,7 @@ module Cyptoify
       attr_accessor :fast_ema, :slow_ema
 
       def post_initialize(args)
-        @fast_ema = Cyptoify::Technical::Ema.new(time_period: 12,data: data).each.inject({}) { |hsh, v| hsh.merge({ v[:date] => v[:ema] }) }
+        @fast_ema = Cyptoify::Technical::Ema.new(time_period: 12,data: data)
         @slow_ema = Cyptoify::Technical::Ema.new(time_period: 26,data: data)
       end
 
@@ -16,6 +16,7 @@ module Cyptoify
       private
 
       def macd
+        fast_ema.each.inject({}) { |hsh, v| hsh.merge({ v[:date] => v[:ema] }) }
         slow_ema.each do |ema|
           next unless fast_ema[ema[:date]]
           yield ({ date: ema[:date], macd: (fast_ema[ema[:date]] - ema[:ema]).round(2) })

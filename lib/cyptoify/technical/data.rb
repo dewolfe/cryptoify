@@ -21,14 +21,15 @@ module Cyptoify
         puts 'Refreshing Data'
         load_data_from_etherchain
         @file = File.read(@file_name)
-        @price_set = JSON.parse(@file)['data']
+        self.price_set = JSON.parse(@file)['data']
       end
 
       private
 
       def load_data_from_etherchain
         file = File.open('price.json', 'w')
-        request = RestClient.get('https://etherchain.org/api/statistics/price')
+        request = RestClient.
+        ('https://etherchain.org/api/statistics/price')
         file.write(request.body)
       end
 

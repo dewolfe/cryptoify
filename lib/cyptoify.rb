@@ -18,7 +18,7 @@ module Cyptoify
     attr_accessor :configuration
   end
 
-  def self.start
+    def self.start
     Cyptoify.configure
     BlackBox.new(file_name: 'price.json').call
   end

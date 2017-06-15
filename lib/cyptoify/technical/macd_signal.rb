@@ -10,7 +10,7 @@ module Cyptoify
         @macd = Cyptoify::Technical::Macd.new(data: data)
       end
 
-      def each(&block)
+      def each()
         return enum_for(:each) unless block_given?
         macd_signal { |p| yield(p) }
       end
@@ -32,6 +32,6 @@ module Cyptoify
       def sma(period = 9)
         (macd.each.first(period).inject(0.00) { |sum, price| sum += price[:macd] } / period).round(2)
       end
-          end
+    end
    end
   end
