@@ -47,11 +47,11 @@ module Cyptoify
           if current_date == this_date_time.to_date
             current_price = price['usd'] if current_date_time <= this_date_time
           else
-            yield { date: current_date, usd: current_price }
+            yield ({ date: current_date, usd: current_price })
             current_date = this_date_time.to_date
           end
         end
-        yield { date: current_date, usd: current_price }
+        yield ({ date: current_date, usd: current_price })
       end
     end
   end
