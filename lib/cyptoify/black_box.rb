@@ -96,8 +96,9 @@ module Cyptoify
         puts "No eth to sell :-("
       else
       quad_client.market_sell(amount: eth_balance, book: book)
-      self.trade_today = true
       end
+      self.trade_today = true
+
     end
 
     def cancel_all_orders
