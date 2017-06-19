@@ -91,9 +91,13 @@ module Cyptoify
     def quad_sell
       return if trade_today
       cancel_all_orders
+      Cyptoify::Notify.send_notification('Sell signal fired.')
+      if eth_balance < 0.00000100
+        puts "NO eth to sell :-("
+      else
       quad_client.market_sell(amount: eth_balance, book: book)
       self.trade_today = true
-      Cyptoify::Notify.send_notification('Sell signal fired.')
+      end
     end
 
     def cancel_all_orders
