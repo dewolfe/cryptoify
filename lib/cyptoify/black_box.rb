@@ -51,9 +51,11 @@ module Cyptoify
       return :hold unless (ind_today && signal_today && ind_yesturday && signal_yesturday)
       puts "Today histogram: #{(ind_today[:macd] - signal_today[:macd_signal]).round(2)}"
       puts "Yesturday histogram: #{(ind_yesturday[:macd] - signal_yesturday[:macd_signal]).round(2)}"
-      if ((ind_today[:macd] - signal_today[:macd_signal]) < 0) && ((ind_yesturday[:macd] - signal_yesturday[:macd_signal]) > 0)
+      if ((ind_today[:macd] - signal_today[:macd_signal]) > 0) &&
+         ((ind_yesturday[:macd] - signal_yesturday[:macd_signal]) < 0)
         :buy
-      elsif ((ind_today[:macd] - signal_today[:macd_signal]) > 0) && ((ind_yesturday[:macd] - signal_yesturday[:macd_signal]) < 0)
+      elsif ((ind_today[:macd] - signal_today[:macd_signal]) < 0) &&
+            ((ind_yesturday[:macd] - signal_yesturday[:macd_signal]) > 0)
         :sell
       else
         :hold
@@ -80,7 +82,7 @@ module Cyptoify
     def quad_buy
       return if trade_today
       cancel_all_orders
-      quad_client.maket_buy(amount: cad_balance, book: book)
+      quad_client.market_buy(amount: cad_balance, book: book)
       self.trade_today = true
       Cyptoify::Notify.send_notification('Buy signal fired.')
 
@@ -89,7 +91,7 @@ module Cyptoify
     def quad_sell
       return if trade_today
       cancel_all_orders
-      quad_client.maket_sell(amount: eth_balance, book: book)
+      quad_client.market_sell(amount: eth_balance, book: book)
       self.trade_today = true
       Cyptoify::Notify.send_notification('Sell signal fired.')
     end
